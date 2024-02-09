@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.railwayonlinesys.beans.HistoryBean;
 import com.railwayonlinesys.beans.TrainException;
 import com.railwayonlinesys.constant.ResponseCode;
@@ -16,6 +19,9 @@ import com.railwayonlinesys.utility.DBUtil;
 
 public class BookingServiceImpl implements BookingService {
 
+	
+	Logger log = LoggerFactory.getLogger(BookingServiceImpl.class);
+	
 	@Override
 	public List<HistoryBean> getAllBookingsByCustomerId(String customerEmailId) throws TrainException {
 		List<HistoryBean> transactions = null;
@@ -41,7 +47,8 @@ public class BookingServiceImpl implements BookingService {
 
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			log.debug(e.getMessage());
+			
 			throw new TrainException(e.getMessage());
 		}
 		return transactions;
@@ -72,7 +79,7 @@ public class BookingServiceImpl implements BookingService {
 			}
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			log.debug(e.getMessage());
 			throw new TrainException(e.getMessage());
 		}
 		return history;
