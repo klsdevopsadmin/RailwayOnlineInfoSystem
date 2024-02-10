@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.railwayonlinesys.beans.TrainBean;
 import com.railwayonlinesys.beans.TrainException;
 import com.railwayonlinesys.constant.ResponseCode;
@@ -15,6 +18,9 @@ import com.railwayonlinesys.utility.DBUtil;
 
 public class TrainServiceImpl implements TrainService {
 
+	
+	Logger log = LoggerFactory.getLogger(TrainServiceImpl.class);
+	
 	@Override
 	public String addTrain(TrainBean train) {
 		String responseCode = ResponseCode.FAILURE.toString();
@@ -34,6 +40,7 @@ public class TrainServiceImpl implements TrainService {
 			}
 			ps.close();
 		} catch (SQLException | TrainException e) {
+			log.debug(e.getMessage());
 			responseCode += " : " + e.getMessage();
 		}
 		return responseCode;
