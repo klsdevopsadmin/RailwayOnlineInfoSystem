@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.railwayonlinesys.beans.TrainException;
 import com.railwayonlinesys.beans.UserBean;
 import com.railwayonlinesys.constant.ResponseCode;
@@ -16,6 +19,8 @@ import com.railwayonlinesys.utility.DBUtil;
 
 public class UserServiceImpl implements UserService {
 
+	
+	Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 	private final String TABLE_NAME;
 
 	public UserServiceImpl(UserRole userRole) {
@@ -46,7 +51,8 @@ public class UserServiceImpl implements UserService {
 			}
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			log.debug(e.getMessage());
+			//System.out.println(e.getMessage());
 			throw new TrainException(e.getMessage());
 		}
 		return customer;
@@ -76,7 +82,8 @@ public class UserServiceImpl implements UserService {
 			}
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		    log.debug(e.getMessage());
+			//System.out.println(e.getMessage());
 			throw new TrainException(e.getMessage());
 		}
 		return customers;
@@ -100,6 +107,7 @@ public class UserServiceImpl implements UserService {
 			}
 			ps.close();
 		} catch (SQLException | TrainException e) {
+             log.debug(e.getLocalizedMessage());   
 			responseCode += " : " + e.getMessage();
 		}
 		return responseCode;
@@ -120,6 +128,7 @@ public class UserServiceImpl implements UserService {
 			}
 			ps.close();
 		} catch (SQLException | TrainException e) {
+            log.debug(e.getMessage()); 
 			responseCode += " : " + e.getMessage();
 		}
 		return responseCode;
@@ -149,6 +158,7 @@ public class UserServiceImpl implements UserService {
 			} else {
 				responseCode += " : " + e.getMessage();
 			}
+			log.debug(e.getMessage());
 		}
 		return responseCode;
 	}
@@ -176,7 +186,8 @@ public class UserServiceImpl implements UserService {
 			}
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			log.debug(e.getMessage());
+			//System.out.println(e.getMessage());
 			throw new TrainException(e.getMessage());
 		}
 		return customer;
